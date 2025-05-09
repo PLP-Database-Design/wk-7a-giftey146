@@ -39,6 +39,19 @@ Task:
 
 - In the table above, the **Products column** contains multiple values, which violates **1NF**.
 - **Write an SQL query** to transform this table into **1NF**, ensuring that each row represents a single product for an order
+- -- 1NF: Flatten multivalued Products into separate rows
+SELECT 101 AS OrderID, 'John Doe' AS CustomerName, 'Laptop' AS Product
+UNION ALL
+SELECT 101, 'John Doe', 'Mouse'
+UNION ALL
+SELECT 102, 'Jane Smith', 'Tablet'
+UNION ALL
+SELECT 102, 'Jane Smith', 'Keyboard'
+UNION ALL
+SELECT 102, 'Jane Smith', 'Mouse'
+UNION ALL
+SELECT 103, 'Emily Clark', 'Phone';
+
 
 --- 
 
@@ -58,6 +71,14 @@ Task:
 - In the table above, the **CustomerName** column depends on **OrderID** (a partial dependency), which violates **2NF**. 
 
 - Write an SQL query to transform this table into **2NF** by removing partial dependencies. Ensure that each non-key column fully depends on the entire primary key.
+- -- Orders table (Customer info per Order)
+SELECT DISTINCT OrderID, CustomerName
+FROM OrderDetails;
+-- OrderItems table (Product and Quantity per Order)
+SELECT OrderID, Product, Quantity
+FROM OrderDetails;
+
+
 
 ---
 Good luck 🚀
